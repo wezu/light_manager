@@ -13,6 +13,8 @@ in vec2 uv;
 in vec4 world_pos;
 in vec3 normal;
 
+out vec4 final_color;
+
 //TBN by Chris­t­ian Schuler from http://www.thetenthplanet.de/archives/1180
 mat3 cotangent_frame( vec3 N, vec3 p, vec2 uv )
     {
@@ -72,5 +74,5 @@ void main()
         specular +=pow(max(dot(R, V), 0.0), 10.0)*light_color[i].a;
         }
     
-    gl_FragData[0]=vec4((color_tex.rgb*color)+specular, color_tex.a);      
+    final_color=vec4((color_tex.rgb*color)+specular, color_tex.a);      
     }
