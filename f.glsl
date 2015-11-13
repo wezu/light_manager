@@ -59,17 +59,17 @@ void main()
     
     vec3 L;
     vec3 R;
-    float att;      
+    float att;   
     for (int i=0; i<num_lights; ++i)
         { 
         //diffuse
         L = normalize(light_pos[i].xyz-world_pos.xyz);
         att=pow(distance(world_pos.xyz, light_pos[i].xyz), 2.0);      
-        att = clamp(1.0 - att/(light_pos[i].w), 0.0, 1.0);
-        color+=max(dot(N,L), 0.0)*att*light_color[i].rgb;
+        att =clamp(1.0 - att/(light_pos[i].w), 0.0, 1.0);  
+        color+=light_color[i].rgb*max(dot(N,L), 0.0)*att;
         //specular
-        R=reflect(L,N);
-        specular +=pow(max(dot(R, V), 0.0), 10.0)*att*light_color[i].a;
+        R=reflect(L,N)*att;
+        specular +=pow(max(dot(R, V), 0.0), 10.0)*light_color[i].a;
         }
     
     gl_FragData[0]=vec4((color_tex.rgb*color)+specular, color_tex.a);      
