@@ -17,17 +17,17 @@ class Demo():
         base.trackball.node().setPos(0, 600, -80)    
         base.trackball.node().setHpr(0, 40, 0) 
         
-        LM=LightManager(max_lights=16, ambient=(0.2, 0.2, 0.2))
+        LM=LightManager(max_lights=32, ambient=(0.2, 0.2, 0.2))
         print "Number of lights:", LM.max_lights
         
         for i in range(LM.max_lights):
             x=random.randrange(-128, 128)
             y=random.randrange(-128, 128)
-            z=random.randrange(1, 50)            
+            z=random.randrange(1, 20)            
             r=random.uniform(0.0, 1.0)
             g=random.uniform(0.0, 1.0)
             b=random.uniform(0.0, 1.0)            
-            LM.addLight(pos=(x, y, z), color=(r,g,b), radius=70.0, specular=1.0)
+            LM.addLight(pos=(x, y, z), color=(r,g,b), radius=50.0, specular=1.0)
        
         #preview         
         cm = CardMaker("plane")
@@ -44,7 +44,7 @@ class Demo():
         self.smiley.reparentTo(render)
         self.smiley.setPos(-5,60,10)
         self.smiley.setScale(10)
-        #self.smiley.setH(180)
+        self.smiley.hprInterval(3.0, LPoint3(360, 0,0)).loop()
         axis = render.attachNewNode('axis')
         self.smiley.wrtReparentTo(axis) 
         axis.hprInterval(10.0, LPoint3(-360, 0,0)).loop()
